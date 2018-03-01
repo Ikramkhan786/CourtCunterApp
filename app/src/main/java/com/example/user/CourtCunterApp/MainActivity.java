@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void scoreSummaryA(){
         TextView scoreAView = findViewById(R.id.team_a_score_view);
-        scoreAView.setText("Score - " + teamA.getScore() + "//" + teamA.getWicket());
+        scoreAView.setText("Score - " + teamA.getScore() + "/" + teamA.getWicket());
     }
 
     public void overSummaryA(){
