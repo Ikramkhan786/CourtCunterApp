@@ -1,5 +1,6 @@
 package com.example.user.CourtCunterApp;
 
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     * Inning sets for team A
      */
     Inning inning = Inning.TEAM_A;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 overSummaryA();
                 runRateSummaryA();
                 if(teamA.getIsFreeHit())
-                    statsView("");
+                    statsView("Luckyyyy");
                 else
                     statsView("That's OUTttttt");
                 teamA.isFreeHit();
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 overSummaryB();
                 runRateSummaryB();
                 if(teamB.getIsFreeHit())
-                    statsView("");
+                    statsView("Luckyyyy");
                 else
                     statsView("That's OUTttttt");
                 teamB.isFreeHit();
@@ -241,11 +241,19 @@ public class MainActivity extends AppCompatActivity {
                 teamA.updateRun(1);
                 scoreSummaryA();
                 runRateSummaryA();
+                if(teamA.getIsFreeHit())
+                    statsView("Wide && Free hit");
+                else
+                    statsView("Wide");
                 break;
             case TEAM_B:
                 teamB.updateRun(1);
                 scoreSummaryB();
                 runRateSummaryB();
+                if(teamB.getIsFreeHit())
+                    statsView("Wide && Free hit");
+                else
+                    statsView("Wide");
                 break;
             case MATCH_OVER:
                 break;
@@ -261,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 teamA.updateRun(1);
                 scoreSummaryA();
                 runRateSummaryA();
-                statsView("Free Hit");
+                statsView("No Ball & Free Hit");
                 break;
             case TEAM_B:
                 teamB.setIsFreeHit(true);
