@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Cricket Score Counter</string>
+    <string name="team_a">Team A</string>
+    <string name="score_deatils_team_a">Score - --/--</string>
+    <string name="over_deatils_team_a">Over - 0.0</string>
+    <string name="run_rate_details_team_a">Run rate - --</string>
+    <string name="team_b">Team B</string>
+    <string name="score_details_team_b">Score - --/--</string>
+    <string name="over_details_team_b">Over - 0.0</string>
+    <string name="run_rate_details_team_b">Run rate - --</string>
+    <string name="start_inning">Start Inning</string>
+    <string name="dot_ball">Dot Ball</string>
+    <string name="run_two">Run 2</string>
+    <string name="run_four">Run 4</string>
+    <string name="wide">Wd</string>
+    <string name="run_one">Run 1</string>
+    <string name="run_three">Run 3</string>
+    <string name="run_six">Run 6</string>
+    <string name="no_ball">Nb</string>
+    <string name="wicket">W</string>
+    <string name="reset_score">Reset Score</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_height">7dp</dimen>
+    <dimen name="space_between_button">3dp</dimen>
+    <dimen name="text_size_button">6dp</dimen>
+    <dimen name="team_name_text_size">12sp</dimen>
+    <dimen name="score_text_size">12sp</dimen>
+    <dimen name="over_text_size">8sp</dimen>
+    <dimen name="run_rate_text_size">8sp</dimen>
+</resources>
