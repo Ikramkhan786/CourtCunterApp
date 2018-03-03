@@ -1,10 +1,12 @@
 package com.example.user.CourtCunterApp;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 27-02-2018.
  */
 
-public class ScoreKeeper {
+public class ScoreKeeper implements Serializable {
     /*
      *Global variable for keeping recode of score and wicket.
      */

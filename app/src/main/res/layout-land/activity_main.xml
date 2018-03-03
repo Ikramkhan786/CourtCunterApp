@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.user.CourtCunterApp.MainActivity">
 
     <RelativeLayout
@@ -66,10 +66,9 @@
                 <View
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
-                    android:background="#DC1842"
-                    android:rotation="-10"
                     android:layout_marginTop="@dimen/run_rate_text_size"
-                    />
+                    android:background="#DC1842"
+                    android:rotation="-10" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -118,6 +117,7 @@
                 android:id="@+id/stats_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_between_button"
                 android:gravity="center"
                 android:textStyle="bold" />
 
@@ -237,8 +237,8 @@
             android:layout_height="@dimen/button_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:onClick="resetScore"
             android:layout_marginBottom="@dimen/space_between_button"
+            android:onClick="resetScore"
             android:text="@string/reset_score" />
 
     </RelativeLayout>

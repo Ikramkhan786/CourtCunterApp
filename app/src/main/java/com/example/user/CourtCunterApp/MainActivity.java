@@ -5,19 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
+
 import java.text.*;
 
 public class MainActivity extends AppCompatActivity {
-/*
-* this enum refers which which team is playing or match has ended
- */
-    public Inning getInning()
-    {
+    /*
+    * this enum refers which which team is playing or match has ended
+     */
+    public Inning getInning() {
         return inning;
     }
-    enum Inning{
-        TEAM_A,TEAM_B,MATCH_OVER
+
+    enum Inning {
+        TEAM_A, TEAM_B, MATCH_OVER
     }
+
     /*
     * Variables to keep score data of teams
      */
@@ -30,6 +32,51 @@ public class MainActivity extends AppCompatActivity {
     Inning inning = Inning.TEAM_A;
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        /*outState.putInt("scoreA", teamA.getScore());
+        outState.putInt("wicketA", teamA.getWicket());
+        outState.putInt("overA", teamA.getOver());
+        outState.putInt("ballA", teamA.getBall());
+        outState.putBoolean("isNoBallA", teamA.getIsFreeHit());
+        outState.putInt("scoreB", teamB.getScore());
+        outState.putInt("wicketB", teamB.getWicket());
+        outState.putInt("overB", teamB.getOver());
+        outState.putInt("ballB", teamB.getBall());
+        outState.putBoolean("isNoBallB", teamB.getIsFreeHit());*/
+        outState.putSerializable("teamA", teamA);
+        outState.putSerializable("teamB", teamB);
+        outState.putSerializable("inning", inning);
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+       /* teamA.setScore(savedInstanceState.getInt("scoreA"));
+        teamA.setWicket(savedInstanceState.getInt("wicketA"));
+        teamA.setOver(savedInstanceState.getInt("overA"));
+        teamA.setBall(savedInstanceState.getInt("ballA"));
+        teamA.setIsFreeHit(savedInstanceState.getBoolean("isNoBallA"));
+        teamA.setScore(savedInstanceState.getInt("scoreB"));
+        teamA.setWicket(savedInstanceState.getInt("wicketB"));
+        teamA.setOver(savedInstanceState.getInt("overB"));
+        teamA.setBall(savedInstanceState.getInt("ballB"));
+        teamA.setIsFreeHit(savedInstanceState.getBoolean("isNoBall"));*/
+        teamA = (ScoreKeeper) savedInstanceState.getSerializable("teamA");
+        teamB = (ScoreKeeper) savedInstanceState.getSerializable("teamB");
+        inning = (Inning) savedInstanceState.getSerializable("inning");
+        scoreSummaryA();
+        overSummaryA();
+        runRateSummaryA();
+        if (inning != Inning.TEAM_A) {
+            scoreSummaryB();
+            overSummaryB();
+            runRateSummaryB();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -40,12 +87,12 @@ public class MainActivity extends AppCompatActivity {
     * This function executes when Start Inning button pressed
     * This function call function mSetInning with true value
      */
-    public void startInning(View view){
+    public void startInning(View view) {
         mSetInning(true);
     }
 
-    public void dotBall(View view){
-        switch(getInning()){
+    public void dotBall(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(0);
                 teamA.updateOver();
@@ -70,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void oneRun(View view){
-        switch(getInning()){
+    public void oneRun(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(1);
                 teamA.updateOver();
@@ -96,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void twoRun(View view){
-        switch(getInning()){
+    public void twoRun(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(2);
                 teamA.updateOver();
@@ -122,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void threeRun(View view){
-        switch(getInning()){
+    public void threeRun(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(3);
                 teamA.updateOver();
@@ -147,9 +194,9 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void FourRun(View view){
+    public void FourRun(View view) {
 
-        switch(getInning()){
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(4);
                 teamA.updateOver();
@@ -174,8 +221,8 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void sixRun(View view){
-        switch(getInning()){
+    public void sixRun(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(6);
                 teamA.updateOver();
@@ -200,16 +247,16 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void wicketDown(View view){
+    public void wicketDown(View view) {
 
-        switch(getInning()){
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateWicket();
                 teamA.updateOver();
                 scoreSummaryA();
                 overSummaryA();
                 runRateSummaryA();
-                if(teamA.getIsFreeHit())
+                if (teamA.getIsFreeHit())
                     statsView("Luckyyyy");
                 else
                     statsView("That's OUTttttt");
@@ -222,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 scoreSummaryB();
                 overSummaryB();
                 runRateSummaryB();
-                if(teamB.getIsFreeHit())
+                if (teamB.getIsFreeHit())
                     statsView("Luckyyyy");
                 else
                     statsView("That's OUTttttt");
@@ -235,13 +282,13 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void wideBall(View view){
-        switch(getInning()){
+    public void wideBall(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.updateRun(1);
                 scoreSummaryA();
                 runRateSummaryA();
-                if(teamA.getIsFreeHit())
+                if (teamA.getIsFreeHit())
                     statsView("Wide && Free hit");
                 else
                     statsView("Wide");
@@ -250,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
                 teamB.updateRun(1);
                 scoreSummaryB();
                 runRateSummaryB();
-                if(teamB.getIsFreeHit())
+                if (teamB.getIsFreeHit())
                     statsView("Wide && Free hit");
                 else
                     statsView("Wide");
@@ -262,8 +309,8 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void noBall(View view){
-        switch(getInning()){
+    public void noBall(View view) {
+        switch (getInning()) {
             case TEAM_A:
                 teamA.setIsFreeHit(true);
                 teamA.updateRun(1);
@@ -284,17 +331,17 @@ public class MainActivity extends AppCompatActivity {
         isInningOver();
     }
 
-    public void scoreSummaryA(){
+    public void scoreSummaryA() {
         TextView scoreAView = findViewById(R.id.team_a_score_view);
         scoreAView.setText("Score - " + teamA.getScore() + "/" + teamA.getWicket());
     }
 
-    public void overSummaryA(){
+    public void overSummaryA() {
         TextView overAView = findViewById(R.id.over_view);
         overAView.setText("Over - " + teamA.getOver() + "." + teamA.getBall());
     }
 
-    public void runRateSummaryA(){
+    public void runRateSummaryA() {
         TextView runRateView = findViewById(R.id.run_rate_view);
         DecimalFormat df = new DecimalFormat("####.##");
         runRateView.setText("Run rate - " + df.format(teamA.getRunRate()));
@@ -304,40 +351,40 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Team A Inning has ended", Toast.LENGTH_SHORT).show();
     }*/
 
-    public void scoreSummaryB(){
+    public void scoreSummaryB() {
         TextView scoreAView = findViewById(R.id.team_b_score_view);
         scoreAView.setText("Score - " + teamB.getScore() + "/" + teamB.getWicket());
     }
 
-    public void overSummaryB(){
+    public void overSummaryB() {
         TextView overAView = findViewById(R.id.team_b_over_view);
         overAView.setText("Over - " + teamB.getOver() + "." + teamB.getBall());
     }
 
-    public void runRateSummaryB(){
+    public void runRateSummaryB() {
         TextView runRateView = findViewById(R.id.team_b_run_rate_view);
         DecimalFormat df = new DecimalFormat("####.##");
         runRateView.setText("Run rate - " + df.format(teamB.getRunRate()));
     }
 
-    public void statsView(String msg){
+    public void statsView(String msg) {
         TextView statsTextView = findViewById(R.id.stats_view);
         statsTextView.setText(msg);
     }
 
-    public void isInningOver(){
-        if(inning == Inning.TEAM_A && teamA.isInningOver()){
+    public void isInningOver() {
+        if (inning == Inning.TEAM_A && teamA.isInningOver()) {
             statsView(" team A's inning ended");
             inning = Inning.TEAM_B;
             mSetInning(false);
         }
-        if(inning == Inning.TEAM_B){
-            if(teamB.isInningOver()){
+        if (inning == Inning.TEAM_B) {
+            if (teamB.isInningOver()) {
                 statsView("Team A won");
                 inning = Inning.MATCH_OVER;
                 mSetInning(false);
             }
-            if(teamA.getScore() < teamB.getScore()){
+            if (teamA.getScore() < teamB.getScore()) {
                 statsView("Team B won");
                 inning = Inning.MATCH_OVER;
                 mSetInning(false);
@@ -345,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void resetScore(View view){
+    public void resetScore(View view) {
         teamA.resetScore();
         teamB.resetScore();
         scoreSummaryA();
@@ -359,35 +406,34 @@ public class MainActivity extends AppCompatActivity {
         mSetInning(false);
     }
 
-    public void mSetInning(boolean start){
-		Button [] scoreButton = new Button[9];
-        scoreButton[0] =  findViewById(R.id.dot_ball_button_id);
-		scoreButton[1] =  findViewById(R.id.four_run_button_id);
-		scoreButton[2] =  findViewById(R.id.no_ball_button_id);
-		scoreButton[3] =  findViewById(R.id.one_run_button_id);
-		scoreButton[4] =  findViewById(R.id.six_run_button_id);
-		scoreButton[5] =  findViewById(R.id.three_run_button_id);
-		scoreButton[6] =  findViewById(R.id.two_run_button_id);
-		scoreButton[7] =  findViewById(R.id.wicket_button_id);
-		scoreButton[8] =  findViewById(R.id.wide_button_id);
+    public void mSetInning(boolean start) {
+        Button[] scoreButton = new Button[9];
+        scoreButton[0] = findViewById(R.id.dot_ball_button_id);
+        scoreButton[1] = findViewById(R.id.four_run_button_id);
+        scoreButton[2] = findViewById(R.id.no_ball_button_id);
+        scoreButton[3] = findViewById(R.id.one_run_button_id);
+        scoreButton[4] = findViewById(R.id.six_run_button_id);
+        scoreButton[5] = findViewById(R.id.three_run_button_id);
+        scoreButton[6] = findViewById(R.id.two_run_button_id);
+        scoreButton[7] = findViewById(R.id.wicket_button_id);
+        scoreButton[8] = findViewById(R.id.wide_button_id);
 
-		Button startInningButton =  findViewById(R.id.start_inning_button_id);
+        Button startInningButton = findViewById(R.id.start_inning_button_id);
 
-		if(start){
+        if (start) {
 
-			for(Button b : scoreButton){
-               b.setEnabled(true);
-			}
+            for (Button b : scoreButton) {
+                b.setEnabled(true);
+            }
 
-			startInningButton.setEnabled(false);
-		}
-		else{
-			for(Button b : scoreButton){
-				b.setEnabled(false);
-			}
+            startInningButton.setEnabled(false);
+        } else {
+            for (Button b : scoreButton) {
+                b.setEnabled(false);
+            }
 
-			startInningButton.setEnabled(true);
-		}
+            startInningButton.setEnabled(true);
+        }
 
     }
 
